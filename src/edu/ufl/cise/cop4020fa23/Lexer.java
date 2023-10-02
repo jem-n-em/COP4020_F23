@@ -9,14 +9,10 @@
 */
 package edu.ufl.cise.cop4020fa23;
 
-import static edu.ufl.cise.cop4020fa23.Kind.EOF;
-import edu.ufl.cise.cop4020fa23.Kind.*;
 import edu.ufl.cise.cop4020fa23.exceptions.LexicalException;
-import edu.ufl.cise.cop4020fa23.SourceLocation;
+
 import java.util.HashMap;
-import java.lang.String;
 import java.util.Vector;
-import java.lang.Long;
 
 
 public class Lexer implements ILexer {
@@ -44,11 +40,11 @@ public class Lexer implements ILexer {
 
 		//add reserved words to hash map
 		reservedWords.put("image", Kind.RES_image);
+		reservedWords.put("pixel", Kind.RES_pixel);
 		reservedWords.put("int", Kind.RES_int);
 		reservedWords.put("string", Kind.RES_string);
 		reservedWords.put("void", Kind.RES_void);
 		reservedWords.put("boolean", Kind.RES_boolean);
-		reservedWords.put("nil", Kind.RES_nil);
 		reservedWords.put("write", Kind.RES_write);
 		reservedWords.put("height", Kind.RES_height);
 		reservedWords.put("width", Kind.RES_width);
@@ -64,6 +60,7 @@ public class Lexer implements ILexer {
 		constants.add("BLACK");
 		constants.add("BLUE");
 		constants.add("CYAN");
+		constants.add("GRAY");
 		constants.add("DARK_GRAY");
 		constants.add("GREEN");
 		constants.add("LIGHT_GRAY");
@@ -241,11 +238,11 @@ public class Lexer implements ILexer {
 							pos++;
 						}
 						case 0 -> {
-							token = new Token(Kind.EOF, tokenPos, 1, charInput, location);
+							token = new Token(Kind.EOF, tokenPos, 0, charInput, location);
 							return token;
 						}
 						default -> {
-							if(!(isLetter(ch) || isNonZeroDigit(ch)))
+							if(!(isLetter(ch) || isNonZeroDigit(ch) || ch == '_'))
 								throw new LexicalException("Character not recognized in language");
 						}
 					}
