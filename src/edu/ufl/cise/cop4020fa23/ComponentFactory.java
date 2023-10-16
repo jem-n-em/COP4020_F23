@@ -28,4 +28,12 @@ public class ComponentFactory {
 			return new ExpressionParser(makeLexer(input));
 		}
 		
+		public static IParser makeParser(String input) throws LexicalException {
+			return new Parser(makeLexer(input));
+		}
+		
+		public static IParser makeParser(ILexer lexer) throws LexicalException {
+			return new Parser(lexer);
+		}
+		
 }
