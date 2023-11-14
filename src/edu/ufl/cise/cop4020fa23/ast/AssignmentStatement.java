@@ -9,10 +9,10 @@
  */
 package edu.ufl.cise.cop4020fa23.ast;
 
-import java.util.Objects;
-
 import edu.ufl.cise.cop4020fa23.IToken;
 import edu.ufl.cise.cop4020fa23.exceptions.PLCCompilerException;
+
+import java.util.Objects;
 
 /**
  * 
@@ -77,5 +77,13 @@ public class AssignmentStatement extends Statement {
 	public Expr getE() {
 		return e;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "AssignmentStatement [lValue=" + lValue + ", e=" + e + "]";
+	}
+	
 	
 }

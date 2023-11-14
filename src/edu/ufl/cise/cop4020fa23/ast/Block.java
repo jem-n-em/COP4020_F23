@@ -9,12 +9,15 @@
  */
 package edu.ufl.cise.cop4020fa23.ast;
 
-import java.util.List;
-import java.util.Objects;
-
 import edu.ufl.cise.cop4020fa23.IToken;
 import edu.ufl.cise.cop4020fa23.exceptions.PLCCompilerException;
 
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * 
+ */
 public class Block extends AST {
 
 	public abstract static class BlockElem extends AST {
@@ -26,7 +29,10 @@ public class Block extends AST {
 
 	final List<BlockElem> elems;
 
-
+	/**
+	 * @param firstToken
+	 * @param elems
+	 */
 	public Block(IToken firstToken, List<BlockElem> elems) {
 		super(firstToken);
 		this.elems = elems;
@@ -57,6 +63,9 @@ public class Block extends AST {
 		return Objects.equals(elems, other.elems);
 	}
 
+	/**
+	 * @return the elems
+	 */
 	public List<BlockElem> getElems() {
 		return elems;
 	}

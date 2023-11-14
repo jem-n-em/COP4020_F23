@@ -10,46 +10,40 @@
 package edu.ufl.cise.cop4020fa23.ast;
 
 import edu.ufl.cise.cop4020fa23.IToken;
-import edu.ufl.cise.cop4020fa23.exceptions.PLCCompilerException;
 
 import java.util.Objects;
 
 /**
  * 
  */
-public class ReturnStatement extends Statement {
-	
-	final Expr e;
-	
-	
+public class SyntheticNameDef extends NameDef {
 
-	/**
-	 * @param firstToken
-	 * @param e
-	 */
-	public ReturnStatement(IToken firstToken, Expr e) {
-		super(firstToken);
-		this.e = e;
+	/** Declaration for implicitly declared variables.  This class is not used in the Parser */
+	
+	final String name;
+
+	public SyntheticNameDef(String name) {
+		super(null, null, null, null);
+		this.name = name;
 	}
-
-
-
+	
 	@Override
-	public Object visit(ASTVisitor v, Object arg) throws PLCCompilerException {
-		return v.visitReturnStatement(this, arg);
+	public String getName() {
+		return name;
 	}
-
-
+	
+	@Override
+	public Type getType() {
+		return Type.INT;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(e);
+		result = prime * result + Objects.hash(name);
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -59,23 +53,24 @@ public class ReturnStatement extends Statement {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ReturnStatement other = (ReturnStatement) obj;
-		return Objects.equals(e, other.e);
+		SyntheticNameDef other = (SyntheticNameDef) obj;
+		return Objects.equals(name, other.name);
 	}
-
-
-
-	public Expr getE() {
-		return e;
-	}
-
-
 
 	@Override
 	public String toString() {
-		return "ReturnStatement [e=" + e + "]";
+		return "SyntheticNameDef [name=" + name + "]";
 	}
-	
-	
 
+	@Override
+	public 
+	IToken getIdentToken() {throw new UnsupportedOperationException();}
+	
+	@Override
+	public 
+	IToken getTypeToken() {throw new UnsupportedOperationException();}
+	
+	@Override
+	public
+	Dimension getDimension() {throw new UnsupportedOperationException();}
 }
