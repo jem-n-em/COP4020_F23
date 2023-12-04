@@ -58,7 +58,6 @@ public class Visitor implements ASTVisitor {
         symbolTable.insert(nameDef);
         return type;
     }
-
     public Object visitDeclaration(Declaration declaration, Object arg) throws PLCCompilerException {
         //conditions for expr
         Expr initializer = declaration.getInitializer();
@@ -204,6 +203,7 @@ public class Visitor implements ASTVisitor {
             throw new TypeCheckException(identExpr.firstToken.sourceLocation(), name + " is undeclared or out of scope");
         NameDef nameDef = entry.namedef;
         identExpr.setType(nameDef.getType());
+        identExpr.setNameDef(nameDef);
         return identExpr.getType();
     }
 

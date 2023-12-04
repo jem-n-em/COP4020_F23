@@ -56,11 +56,25 @@ public class SymbolTable {
         //build new entry
         String ident = namedef.getName();
         Entry entry = lookup(ident);
+
         if (entry != null && entry.scope == currScope) {    //handle duplicate variables
             throw new TypeCheckException(namedef.getName() + " is already defined in this scope");
         }
+
+        setJavaName(entry, namedef);
+
         Entry entryInsert = new Entry(namedef, currScope, entry);
         symbolTable.put(ident, entryInsert);
-        System.out.println("Entry added: " + symbolTable.get(ident).namedef.getName());
+    }
+    public void setJavaName(Entry entry, NameDef namedef){
+        if(entry == null){
+            namedef.setJavaName(namedef.getName() + "$1");  //initial javaname
+            return;
+        }
+        String javaName = entry.namedef.getJavaName();  //get javaname from previous entry
+        int dollarIndex = javaName.indexOf("$");
+        int javaNameIndex = Integer.parseInt(javaName.substring(dollarIndex + 1)) + 1; //PRECONDITION: javaName of previous entry is correctly formatted
+        String newJavaName = namedef.getName() + "$" + javaNameIndex;
+        namedef.setJavaName(newJavaName);
     }
 }

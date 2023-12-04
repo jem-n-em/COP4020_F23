@@ -40,5 +40,8 @@ public class ComponentFactory {
 		public static ASTVisitor makeTypeChecker() {
 			return new Visitor();
 		}
-		
+
+		public static ASTVisitor makeCodeGenerator() {
+			return new CodeGenVisitor();
+		}
 }
