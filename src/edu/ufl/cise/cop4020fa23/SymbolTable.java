@@ -44,7 +44,6 @@ public class SymbolTable {
         //loop through entry chain until one w/ visible scope is found or reach end of chain (null)
         if(entry != null){
             while(!scopeStack.contains(entry.scope)){
-                System.out.println("Entry lookup: " + entry.namedef.getName());
                 entry = entry.entryLink;
                 if(entry == null)
                     break;
